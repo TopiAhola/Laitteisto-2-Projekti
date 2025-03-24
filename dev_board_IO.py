@@ -40,7 +40,7 @@ d2.duty_u16(0) #sammuttaa LEDin
 #Rotary encoder vaatii hardware interruptin Pin.irq - metodin kautta:
 rot_push = Pin(12, Pin.IN, Pin.PULL_UP)
 rota = Pin(10, Pin.IN, Pin.PULL_UP) #clock signal
-rotb = Pin(11, Pin.IN, Pin.PULL_UP) #clockwise rot
+rotb = Pin(11, Pin.IN, Pin.PULL_UP) #rot value
 
 class Encoder:
     def __init__(self, rota, rotb):

@@ -17,35 +17,45 @@ if sw2.value()==0:                      <br>
 
 
 ### LED
-d1 = Pin(22, Pin.OUT)
-d2 = Pin(21, Pin.OUT)
-d3 = Pin(20, Pin.OUT)
-#LED päälle (1) ja pois (0)
-d1.value(1)
-d1.value(0)
 
+    d1 = Pin(22, Pin.OUT)
+    d2 = Pin(21, Pin.OUT)
+    d3 = Pin(20, Pin.OUT)
 
-### I2C pinni näyttöä varten    
-i2c = I2C(1, scl=Pin(15), sda=Pin(14), freq=400000)
+LED päälle (1) ja pois (0)
 
+        d1.value(1)
+        d1.value(0)
 
 ### PWM luokan LEDit                                               <br>
 PWM luokalla voi säätää LEDien kirkkautta välillä 0-65536      <br>
                                                                 <br>
-PWM LEDit pitää määritellä näin:                        <br>
-d1 = PWM(Pin(22), freq = 1000, duty_u16 = 0)            <br>
-d2 = PWM(Pin(21), freq = 1000, duty_u16 = 0)            <br>
-d3 = PWM(Pin(20), freq = 1000, duty_u16 = 0)            <br>
-                                                        <br>
-Kirkkauden asettaminen:                         <br>
-d1.duty_u16(1000) #asettaa kohtalaisen kirkkauden   <br>
-d2.duty_u16(0) #sammuttaa LEDin                     <br>
+PWM LEDit pitää määritellä näin:  
+
+    d1 = PWM(Pin(22), freq = 1000, duty_u16 = 0)            
+    d2 = PWM(Pin(21), freq = 1000, duty_u16 = 0)           
+    d3 = PWM(Pin(20), freq = 1000, duty_u16 = 0)            
+                                                        
+PWM kirkkauden asettaminen:                         
+
+    d1.duty_u16(1000) #asettaa kohtalaisen kirkkauden   
+    d2.duty_u16(0) #sammuttaa LEDin
+
+### I2C pinni näyttöä varten  
+
+    i2c = I2C(1, scl=Pin(15), sda=Pin(14), freq=400000)
+
+
+
+<br>
 
 ### Rotary encoder vaatii hardware interruptin Pin.irq - metodin kautta:
-Määritellään pinnit:                                    <br>
-rot_push = Pin(12, Pin.IN, Pin.PULL_UP)                 <br>
-rota = Pin(10, Pin.IN, Pin.PULL_UP) #clock signal       <br>
-rotb = Pin(11, Pin.IN, Pin.PULL_UP) #clockwise rot      <br>
+Määritellään pinnit:  
+    
+    rot_push = Pin(12, Pin.IN, Pin.PULL_UP)                 
+    rota = Pin(10, Pin.IN, Pin.PULL_UP) #clock signal      
+    rotb = Pin(11, Pin.IN, Pin.PULL_UP) #rot value    
+
 Tehdään Encoder luokka jolla on handler-metodi ja pinni-a.irq -attribuutti:
 
     class Encoder:
@@ -63,12 +73,11 @@ Tehdään Encoder luokka jolla on handler-metodi ja pinni-a.irq -attribuutti:
             else:
                 self.fifo.put(1)
 
-
-<br>encoder1 määritellään Encoder luokkaan:
+encoder1 määritellään Encoder luokkaan:
 
     encoder1 = Encoder(rota, rotb)
 
-<br>#encoder1 arvo luetaan tämän jälkeen näin:
+encoder1 arvo luetaan tämän jälkeen näin:
 
     encoder1_input =0
     if encoder1.fifo.has_data():
