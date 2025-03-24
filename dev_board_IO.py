@@ -1,4 +1,4 @@
-from machine import UART, Pin, I2C, Timer, ADC
+from machine import UART, Pin, I2C, Timer, ADC, PWM
 from ssd1306 import SSD1306_I2C
 from fifo import Fifo
 ###############################################################
@@ -10,7 +10,6 @@ sw0 = Pin(9, Pin.IN, Pin.PULL_UP)
 #Nappulan arvon voi lukea näin:
 if sw2.value()==0:
 
-
 #LED
 d1 = Pin(22, Pin.OUT)
 d2 = Pin(21, Pin.OUT)
@@ -19,11 +18,12 @@ d3 = Pin(20, Pin.OUT)
 d1.value(1)
 d1.value(0)
 
+#ADC inputs
+adc_0 = ADC(Pin(27, Pin.PULL_DOWN))
+adc_1 = ADC(Pin(26,Pin.PULL_DOWN))
+#ADC arvo luetaan näin. palauttaa numeron väliltä 0-65535
+adc_0.read_u16()
 
-#I2C pinni näyttöä varten
-i2c = I2C(1, scl=Pin(15), sda=Pin(14), freq=400000)
-
-###############################################################
 #PWM luokan LEDit
 #PWM luokalla voi säätää LEDien kirkkautta välillä 0-65536
 
@@ -32,9 +32,14 @@ d1 = PWM(Pin(22), freq = 1000, duty_u16 = 0)
 d2 = PWM(Pin(21), freq = 1000, duty_u16 = 0)
 d3 = PWM(Pin(20), freq = 1000, duty_u16 = 0)
 
-# Kirkkauden asettaminen:
+#Kirkkauden asettaminen:
 d1.duty_u16(1000) #asettaa kohtalaisen kirkkauden
 d2.duty_u16(0) #sammuttaa LEDin
+
+#I2C pinni näyttöä varten
+i2c = I2C(1, scl=Pin(15), sda=Pin(14), freq=400000)
+
+
 
 
 #Rotary encoder vaatii hardware interruptin Pin.irq - metodin kautta:
