@@ -1,6 +1,5 @@
 # Projekti - Ryhmä 3
 ## Micropython muistiinpanoja
-
 ### Tarvittavat importit
 
     from machine import UART, Pin, I2C, Timer, ADC, PWM
@@ -8,7 +7,10 @@
     from fifo import Fifo
     import time
 
+
 ## Raspin IO
+
+<img src="dev_board.png">
 
 ### Tactile switches
 sw2 = Pin(7, Pin.IN, Pin.PULL_UP)   <br>
