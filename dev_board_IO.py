@@ -39,7 +39,10 @@ d2.duty_u16(0) #sammuttaa LEDin
 #I2C pinni näyttöä varten
 i2c = I2C(1, scl=Pin(15), sda=Pin(14), freq=400000)
 
-
+#Näytön määritys:
+oled_width = 128
+oled_height = 64
+oled = SSD1306_I2C(oled_width, oled_height, i2c)
 
 
 #Rotary encoder vaatii hardware interruptin Pin.irq - metodin kautta:
@@ -65,7 +68,7 @@ class Encoder:
 encoder1 = Encoder(rota, rotb)
 
 #encoder1 arvo luetaan tämän jälkeen näin:
-encoder1_input =0
+encoder1_input = 0
 if encoder1.fifo.has_data():
     encoder1_input = encoder1.fifo.get()
     print(encoder1_input)

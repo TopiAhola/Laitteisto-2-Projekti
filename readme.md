@@ -1,23 +1,59 @@
 # Projekti - Ryhmä 3
-## Micropython muistiinpanoja
+## Sisällys
+1. Ohjelman rakenne <br><br>
+   Toiminnot <br>
+   Luokat <br>
+   Tarvittavat importit
+
+
+2. Laitteisto ja IO 
+<br>    
+    Raspberry Pi Pico Pinout <br>
+    Tactile switches <br>
+    LED <br>
+    PWM luokan LEDit <br>
+    I2C pinni näyttöä varten <br>
+    Rotary encoder <br>
+
+## 1. Ohjelman rakenne
+### Toiminnot
+Graafinen käyttöliittymä (GUI) <br>
+Sydänkäyrän mittaus <br>
+Tietojen tallentaminen  <br>
+HRV analyysin hakeminen Kubios-pilvipalvelusta
+
+
+### Luokat
+
+Piotimer luokkaa käytetään korvaamaan Timer luokka. <br>
+Kubios luokkaa käytetään WLAN- ja MQTT-yhteyksien hallitsimiseen ja Kubios viestien lähettämiseen ja vastaanottamiseen.    
+
+
 ### Tarvittavat importit
 
     from machine import UART, Pin, I2C, Timer, ADC, PWM
     from ssd1306 import SSD1306_I2C
+    from piotimer import Piotimer
     from fifo import Fifo
-    import time
+    import time, ujson
 
 
-## Raspin IO
+## 2. Laitteisto ja IO
+
+### Raspberry Pi Pico Pinout
 
 <img src="dev_board.png">
 
 ### Tactile switches
-sw2 = Pin(7, Pin.IN, Pin.PULL_UP)   <br>
-sw1 = Pin(8, Pin.IN, Pin.PULL_UP)   <br>
-sw0 = Pin(9, Pin.IN, Pin.PULL_UP)   <br> <br>
-Nappulan arvon voi lukea näin:     <br>
-if sw2.value()==0:                      <br>
+    sw2 = Pin(7, Pin.IN, Pin.PULL_UP)   
+    sw1 = Pin(8, Pin.IN, Pin.PULL_UP)   
+    sw0 = Pin(9, Pin.IN, Pin.PULL_UP)   
+
+Nappulan arvon voi lukea näin:     
+
+    if sw2.value()==0:   
+    tai:
+    if not sw2.value()
 
 
 ### LED
@@ -32,7 +68,7 @@ LED päälle (1) ja pois (0)
         d1.value(0)
 
 ### PWM luokan LEDit                                               <br>
-PWM luokalla voi säätää LEDien kirkkautta välillä 0-65536      <br>
+PWM luokalla voi säätää LEDien kirkkautta välillä 0-65535      <br>
                                                                 <br>
 PWM LEDit pitää määritellä näin:  
 
@@ -51,7 +87,7 @@ PWM kirkkauden asettaminen:
 
 
 
-<br>
+
 
 ### Rotary encoder vaatii hardware interruptin Pin.irq - metodin kautta:
 Määritellään pinnit:  

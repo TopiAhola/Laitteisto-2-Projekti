@@ -1,0 +1,18 @@
+{
+  "urls": [
+    ["lib/filefifo.py", "http://localhost:8000/pico-lib/filefifo.py"],	
+    ["lib/fifo.py", "http://localhost:8000/pico-lib/fifo.py"],
+    ["lib/piotimer.py", "http://localhost:8000/pico-lib/piotimer.py"],
+    ["lib/led.py", "http://localhost:8000/pico-lib/led.py"],
+    ["lib/ssd1306.mpy", "http://localhost:8000/pico-lib/ssd1306.mpy"],
+    ["lib/umqtt/simple.mpy", "http://localhost:8000/pico-lib/umqtt/simple.mpy"],
+    ["Button.py", "http://localhost:8000/Button.py"],
+    ["hrmonitor.py", "http://localhost:8000/hrmonitor.py"],
+    ["Kubios.py", "http://localhost:8000/Kubios.py"],
+    ["main.py", "http://localhost:8000/main.py"],
+    ["safe2.py", "http://localhost:8000/safe2.py"]
+  ],
+  "deps": [
+  ],
+  "version": "0.1"
+}
